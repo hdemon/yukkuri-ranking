@@ -4,9 +4,12 @@ _ = require 'lodash'
 $ = require 'cheerio'
 
 class RSS
-  constructor: (rssUrl) ->
+  constructor: (args) ->
     @page = 1
     @movieStack = []
+
+    @rssUrl = args.rssUrl
+    @searchWord = args.searchWord
 
   nextMovie: ->
     if @movieStack.length <= 0
@@ -21,8 +24,8 @@ class RSS
     @getRss(page).then (xml) => (@splitToMovie xml).map (text) => @parseMovieInfo text
 
   getRss: (page) ->
-    new Promise (resolve, reject) ->
-      request "http://www.nicovideo.jp/tag/ゆっくり実況プレイpart1リンク?page=#{page}&sort=f&rss=2.0", (err, response, body) ->
+    new Promise (resolve, reject) =>
+      request "#{@rssUrl}/#{@searchWord}?page=#{page}&sort=f&rss=2.0", (err, response, body) ->
         resolve body
 
   splitToMovie: (xml) ->

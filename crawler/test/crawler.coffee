@@ -18,6 +18,9 @@ describe "nextMovie", ->
       .reply(200, @fixture)
 
     @crawler = new Crawler.RSS
+      rssUrl: "http://www.nicovideo.jp/tag"
+      searchWord: "ゆっくり実況プレイpart1リンク"
+
     @crawler.nextMovie().then (movieInfo) =>
       @returned = movieInfo
       @mock.done()
