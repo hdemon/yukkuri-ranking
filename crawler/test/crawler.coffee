@@ -17,7 +17,7 @@ describe "nextMovie", ->
       .get("/tag/ゆっくり実況プレイpart1リンク?page=1&sort=f&rss=2.0")
       .reply(200, @fixture)
 
-    @crawler = new Crawler.PartOneMovie
+    @crawler = new Crawler.RSS
     @crawler.nextMovie().then (movieInfo) =>
       @returned = movieInfo
       @mock.done()
