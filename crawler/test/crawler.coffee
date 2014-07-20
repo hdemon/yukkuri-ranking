@@ -26,5 +26,5 @@ describe "nextMovie", ->
       @mock.done()
       done()
 
-  it "should return html scraped by anison.info", ->
+  it "should return hash of latest movie info", ->
     expect(@returned).to.deep.equal { id: "sm24040823", published: 1405774813000 }
