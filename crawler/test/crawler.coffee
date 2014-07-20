@@ -3,16 +3,15 @@ expect = chai.expect
 should = chai.should()
 sinon = require('sinon')
 sinonChai = require('sinon-chai')
-
-chai.use(sinonChai)
-
 fs = require 'fs'
 nock = require 'nock'
 Crawler = require '../lib/crawler.coffee'
+chai.use(sinonChai)
+
 
 describe "nextMovie", ->
   beforeEach (done) ->
-    @fixture = fs.readFileSync("test/fixture/search_result.html")
+    @fixture = fs.readFileSync("test/fixture/search_result.xml")
     @mock = nock('http://www.nicovideo.jp')
       .get("/tag/ゆっくり実況プレイpart1リンク?page=1&sort=f&rss=2.0")
       .reply(200, @fixture)
@@ -27,4 +26,4 @@ describe "nextMovie", ->
       done()
 
   it "should return hash of latest movie info", ->
-    expect(@returned).to.deep.equal { id: "sm24040823", published: 1405774813000 }
+    expect(@returned).to.deep.equal { video_id: "sm24040823", published: 1405774813000 }
