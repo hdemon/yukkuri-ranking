@@ -23,5 +23,14 @@ describe "nextMovie", ->
       @mock.done()
       done()
 
-  it "should return hash of latest movie info", ->
-    expect(@returned).to.deep.equal { id: "sm24040823", published: 1405774813000 }
+  it "should return hash of first(sm24040823) movie info", ->
+    expect(@returned.video_id).to.equal "sm24040823"
+    expect(@returned.view_counter).to.equal 439
+    expect(@returned.tags).to.deep.equal [
+        "ゲーム"
+        "パワポケ11"
+        "ゆっくり実況プレイ"
+        "ハタ人間編"
+        "裏サクセス"
+        "ゆっくり実況プレイpart1リンク"
+      ]

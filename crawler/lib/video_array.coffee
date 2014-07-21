@@ -29,6 +29,7 @@ class VideoArray
   parseMovieInfo: (xml) ->
     _$ = $.load xml
 
+    video_id: _$("video id").text()
     description: _$("description").text()
     thumbnail_url: _$("thumbnail_url").text()
     view_counter: Number _$("view_counter").text()
