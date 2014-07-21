@@ -49,7 +49,7 @@ storeNewMovies = (newPartOneMovies=[], newSeriesMylists=[])->
       method: "POST"
       headers:
         "Content-type": "application/json"
-      body: JSON.stringify movieInfo
+      body: JSON.stringify _.omit movieInfo, 'description'
     , (err, message, response) ->
       console.log err if err
 

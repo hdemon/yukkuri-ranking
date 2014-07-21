@@ -26,4 +26,6 @@ describe "nextMovie", ->
       done()
 
   it "should return hash of latest movie info", ->
-    expect(@returned).to.deep.equal { video_id: "sm24040823", published: 1405774813000 }
+    expect(@returned.video_id).to.deep.equal "sm24040823"
+    expect(@returned.published).to.deep.equal 1405774813000
+    expect(@returned.description).to.be.a 'string'

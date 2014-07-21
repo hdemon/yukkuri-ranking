@@ -34,5 +34,6 @@ class RSS
   parseMovieInfo: (xml) ->
     video_id: xml.match(/\<link\>http:\/\/www\.nicovideo\.jp\/watch\/(sm|nm)\d{1,}/g)[0].replace /\<link\>http:\/\/www\.nicovideo\.jp\/watch\//g, ''
     published: Date.parse $.load(xml)("pubDate").text()
+    description: $.load(xml)("description").html().match(/\<p\sclass=\"nico-description\"\>.+(?=\<\/p\>)/g)[0].replace(/\<p\sclass=\"nico-description\"\>/g, '')
 
 module.exports = RSS
