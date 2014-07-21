@@ -33,13 +33,18 @@ crawlPartOneMovie = ->
         crawl()
 
   shouldTerminate = (movieInfo) ->
-    console.log movieInfo
-    console.log latestMovieInfo
     (movieInfo.published <= latestMovieInfo.published) || _.isEmpty movieInfo
 
   new Promise (resolve, reject) -> getLatestMovieInfo().then(crawl).then -> resolve newPartOneMovies
 
-retrieveNewSeriesMylist = (newPartOneMovies)->
+retrieveNewSeriesMylists = (newPartOneMovies)->
+  retrieveNewSeriesMylist = (newPartOneMovie) ->
+    newPartOneMovie.description
+
+  newSeriesMylists = ->
+    newPartOneMovies.forEach (movie) ->
+      retrieveNewSeriesMylist()
+
   newPartOneMovies
 
 storeNewMovies = (newPartOneMovies=[], newSeriesMylists=[])->
@@ -53,12 +58,11 @@ storeNewMovies = (newPartOneMovies=[], newSeriesMylists=[])->
     , (err, message, response) ->
       console.log err if err
 
-  storeInLocal = (movieInfo) ->
+  storeInMainDB = (movieInfo) ->
+    console.log movieInfo
 
-  # console.log newPartOneMovies
-  # console.log newSeriesMylists
   newPartOneMovies.forEach (movieInfo) -> storeInCouchDB movieInfo
-  newSeriesMylists.forEach (movieInfo) -> storeInLocal movieInfo
+  newSeriesMylists.forEach (movieInfo) -> storeInMainDB movieInfo
 
 removeRecentPartOneMovieDocs = (number) ->
   getAllPartOneMovieMeta().then (partOneMovies) ->
@@ -74,6 +78,5 @@ removeMovies = (movies) ->
 
 removeRecentPartOneMovieDocs(5) # for test
   .then crawlPartOneMovie
-  .then retrieveNewSeriesMylist
-  .then storeNewMovies
+  .then retrieveNewSeriesMylists
   .then storeNewMovies
