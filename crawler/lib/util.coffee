@@ -1,6 +1,6 @@
 fs = require 'fs'
 request = require 'request'
-Promise = require 'bluebird'
+Promise = require('ypromise')
 Levenshtein = require 'levenshtein'
 _ = require 'lodash'
 
@@ -14,5 +14,13 @@ Util.combination = (array) ->
     current = array.pop()
     result = result.concat array.map (element) -> [current, element]
   result
+
+Util.sleep = (second) ->
+  new Promise (resolve) -> setTimeout (-> resolve()), second
+
+Util.runSequentially = (promises) ->
+  promises.reduce (previous, current) ->
+    previous.then(current).then (result) -> results.push result
+  , Promise.resolve()
 
 module.exports = Util

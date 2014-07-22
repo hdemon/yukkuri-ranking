@@ -1,5 +1,5 @@
 request = require 'request'
-Promise = require 'bluebird'
+Promise = require('ypromise')
 _ = require 'lodash'
 $ = require 'cheerio'
 
@@ -13,7 +13,7 @@ class VideoArray
         @movieStack = array
         @movieStack.shift()
     else
-      new Promise (resolve, reject) => resolve @movieStack.shift()
+      Promise.resolve @movieStack.shift()
 
   scrape: (videoIds) ->
     @getXml(videoIds).then (xml) => (@splitToMovie xml).map (text) => @parseMovieInfo text

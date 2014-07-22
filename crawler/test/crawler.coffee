@@ -8,7 +8,6 @@ nock = require 'nock'
 Crawler = require '../lib/crawler.coffee'
 chai.use(sinonChai)
 
-
 describe "nextMovie", ->
   beforeEach (done) ->
     @fixture = fs.readFileSync("test/fixture/search_result.xml")

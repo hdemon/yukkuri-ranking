@@ -1,3 +1,4 @@
 RSS = require './rss'
+MylistRSS = require './mylist_rss'
 
-module.exports = {RSS}
+module.exports = {RSS, MylistRSS}
