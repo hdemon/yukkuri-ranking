@@ -38,6 +38,7 @@ PO.crawl = (latestMovieInfo) ->
       if PO.shouldTerminate movieInfo, latestMovieInfo
         console.log "Reached to the movie that is scraped last time"
         console.log "Terminated crawling part one movie successfully"
+        newPartOneMovies
       else
         newPartOneMovies.push movieInfo
         PO.crawl latestMovieInfo
@@ -45,23 +46,13 @@ PO.crawl = (latestMovieInfo) ->
       if error == "Reached to the last page"
         console.log error
         console.log "Terminated crawling part one movie successfully"
-        return Promise.resolve()
+        Promise.resolve newPartOneMovies
       else
         console.error "Stop at crawling part one movie"
         Promise.reject error
 
 PO.shouldTerminate = (movieInfo, latestMovieInfo) ->
   (movieInfo.published <= latestMovieInfo.published) || _.isEmpty movieInfo
-
-PO.crawlLatests = ->
-  console.log "start crawling part one movies"
-
-  Promise.resolve()
-    .then PO.getLatestMovieInfo
-    .then PO.crawl
-    .catch (error) ->
-      console.error "Stop at crawling part one movie"
-      Promise.reject error
 
 PO.removeAllPartOneMovieDocs = ->
   PO.getAllPartOneMovieMeta().then (partOneMovies) ->
@@ -86,5 +77,15 @@ PO.removeMovie = (movie) ->
 
 PO.removeMovies = (movies) ->
   Promise.all movies.map (movie) -> PO.removeMovie movie
+
+PO.crawlLatests = ->
+  console.log "start crawling part one movies"
+
+  Promise.resolve()
+    .then PO.getLatestMovieInfo
+    .then PO.crawl
+    .catch (error) ->
+      console.error "Stop at crawling part one movie"
+      Promise.reject error
 
 module.exports = PO
