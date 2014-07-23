@@ -1,10 +1,6 @@
 fs = require 'fs'
 request = require 'request'
-# Promise = require('es6-promise').Promise
 Promise = require('ypromise')
-
-
-# Promise = require 'q'
 Levenshtein = require 'levenshtein'
 _ = require 'lodash'
 Crawler = require './lib/crawler'
