@@ -5,7 +5,7 @@ sinon = require('sinon')
 sinonChai = require('sinon-chai')
 fs = require 'fs'
 nock = require 'nock'
-Util = require '../lib/util.coffee'
+Util = require '../../lib/util.coffee'
 chai.use(sinonChai)
 
 

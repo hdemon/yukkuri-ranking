@@ -5,7 +5,7 @@ sinon = require('sinon')
 sinonChai = require('sinon-chai')
 fs = require 'fs'
 nock = require 'nock'
-VideoArray = require '../lib/video_array.coffee'
+VideoArray = require '../../lib/video_array.coffee'
 chai.use(sinonChai)
 
 

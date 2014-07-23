@@ -5,7 +5,7 @@ sinon = require('sinon')
 sinonChai = require('sinon-chai')
 fs = require 'fs'
 nock = require 'nock'
-Crawler = require '../lib/crawler.coffee'
+Crawler = require '../../lib/crawler.coffee'
 chai.use(sinonChai)
 
 describe "nextMovie", ->
