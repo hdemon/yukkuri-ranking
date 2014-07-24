@@ -35,8 +35,10 @@ SM.retrieveMylistsIds = (newPartOneMovie) ->
 
 SM.retrieveSequentially = (newPartOneMovies) ->
   console.log "Start retrieving new series mylists"
-  Promise.resolve(newPartOneMovies)
-    .then(SM.getNewOnes)
+
+  Promise.resolve newPartOneMovies
+    .then SM.getNewOnes
+    .then (result) -> console.log result
     .catch (error) ->
       console.error "Stop at retrieving new series mylist"
       Promise.reject error
