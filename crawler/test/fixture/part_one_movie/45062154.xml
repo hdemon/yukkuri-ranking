@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+
+  <channel>
+
+    <title>マイリスト ゆっくりとMinecraft‐ニコニコ動画</title>
+    <link>http://www.nicovideo.jp/mylist/45062154</link>
+    <atom:link rel="self" type="application/rss+xml" href="http://www.nicovideo.jp/mylist/45062154?rss=2.0"/>
+    <description></description>
+    <pubDate>Mon, 21 Jul 2014 23:27:28 +0900</pubDate>
+    <lastBuildDate>Mon, 21 Jul 2014 23:27:28 +0900</lastBuildDate>
+    <generator>ニコニコ動画</generator>
+    <dc:creator>ストレイド(野良猫)</dc:creator>
+    <language>ja-jp</language>
+    <copyright>(c) niwango, inc. All rights reserved.</copyright>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+
+
+    <item>
+      <title>ゆっくりとMinecraft　part.01</title>
+      <link>http://www.nicovideo.jp/watch/sm24059073</link>
+      <guid isPermaLink="false">tag:nicovideo.jp,2014-07-21:/watch/1405953014</guid>
+      <pubDate>Mon, 21 Jul 2014 23:38:19 +0900</pubDate>
+      <description><![CDATA[<p class="nico-thumbnail"><img alt="ゆっくりとMinecraft　part.01" src="http://tn-skr2.smilevideo.jp/smile?i=24059073" width="94" height="70" border="0"/></p><p class="nico-description">皆さん初めまして。ストレイド（野良猫）です。今回は新バージョンの1.7.10の世界を探検していこうと思います。気分転換で作った動画なのでおかしなところが多々ありますがお許しを。※洞窟内でゾンビの声がしていましたが、別の場所にいるのか探しても見つからなかったので放置しました。（ので、遭遇してない扱いにしています。）次→そのうちマイリス→mylist/45062154投稿動画まとめマイリスト→mylist/40202854　たまに放送しています→co2240011何かあれば→ツイッター→@seron876　　　　　　スカイプ→sutoreido2525　　　　Yahooメール→kedoyappari☆yahoo.co.jp</p><p class="nico-info"><small><strong class="nico-info-length">7:16</strong>｜<strong class="nico-info-date">2014年07月21日 23：30：14</strong> 投稿</small></p>]]></description>
+    </item>
+
+  </channel>
+
+</rss>
