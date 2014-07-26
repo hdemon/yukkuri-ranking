@@ -19,8 +19,11 @@ Util.sleep = (second) ->
   new Promise (resolve) -> setTimeout (-> resolve()), second
 
 Util.runSequentially = (promises) ->
+  results = []
   promises.reduce (previous, current) ->
-    previous.then(current).then (result) -> results.push result
+    previous.then(current).then (result) ->
+      results.push result
+      results
   , Promise.resolve()
 
 module.exports = Util
