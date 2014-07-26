@@ -4,8 +4,7 @@ Promise = require 'ypromise'
 _ = require 'lodash'
 Crawler = require './crawler'
 Util = require './util'
-
-auth = JSON.parse fs.readFileSync "./auth.json"
+auth = require './auth'
 
 crawler = new Crawler.RSS
   rssUrl: "http://www.nicovideo.jp/tag"
