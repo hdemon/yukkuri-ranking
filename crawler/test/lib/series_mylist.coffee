@@ -26,4 +26,5 @@ describe "retrieveSequentially", ->
       .then (@returned) => done()
 
   it "should return hash of first(sm24040823) movie info", ->
-    console.log @returned
+    expect(@returned).to.include 44506319, 40202854, 45046494
+    expect(@returned).not.to.include 39009529, 45062154, 39654546
