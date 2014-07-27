@@ -21,7 +21,8 @@ SM.getAverageLevenshtein = (mylistId) ->
     .catch (error) -> console.trace error
 
 SM.getAverageLevenshteinValues = (movie) ->
-  Util.runSequentially SM.retrieveMylistsIds(movie).map (mylistId) -> -> SM.getAverageLevenshtein mylistId
+  Util.runSequentially SM.retrieveMylistsIds(movie).map (mylistId) ->
+    -> (Util.sleep 500).then -> SM.getAverageLevenshtein mylistId
 
 SM.retrieveMylistsIds = (movie) ->
   (movie.description.match(/mylist\/\d{1,}/g) || []).map (string) -> Number string.replace /mylist\//g, ''

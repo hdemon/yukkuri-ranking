@@ -7,6 +7,7 @@ auth = require './auth'
 
 Store = {}
 Store.inCouchDB = (movieInfo) ->
+  console.log movieInfo
   request
     url: "https://#{auth.user}:#{auth.password}@hdemon.cloudant.com/yukkuri-ranking/"
     method: "POST"

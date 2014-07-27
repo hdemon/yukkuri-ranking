@@ -23,7 +23,7 @@ module.exports = (grunt) ->
       all:
         options:
           reporter: 'spec'
-          timeout: 3000
+          timeout: 5000
           ui: 'bdd'
           require: 'coffee-script/register'
           compilers: 'coffee:coffee-script/register'

@@ -11,9 +11,12 @@ class MylistRSS
 
   scrapeRss: (mylistId) ->
     @getRss(mylistId)
-      .then (xml) => Promise.resolve((@splitToMovie xml).map (text) => @parseMovieInfo text)
+      .then (@xml) =>
+        Promise.resolve((@splitToMovie @xml).map (text) => @parseMovieInfo text)
       .catch (error) =>
         console.trace error
+        console.error "Error caused during parse the following xml"
+        console.trace @xml
 
   getRss: (mylistId) ->
     new Promise (resolve, reject) =>
@@ -35,7 +38,7 @@ class MylistRSS
 
   parseMovieInfo: (xml) ->
     _$ = $.load(xml)
-    video_id: xml.match(/\<link\>http:\/\/www\.nicovideo\.jp\/watch\/(sm|nm)\d{1,}/g)[0].replace /\<link\>http:\/\/www\.nicovideo\.jp\/watch\//g, ''
+    video_id: xml.match(/\<link\>http:\/\/www\.nicovideo\.jp\/watch\/(sm|nm)?\d+/g)[0].replace /\<link\>http:\/\/www\.nicovideo\.jp\/watch\//g, ''
     title: _$("title").text()
     published: Date.parse _$("pubDate").text()
     description: _$("description").html().match(/\<p\sclass=\"nico-description\"\>.+(?=\<\/p\>)/g)[0].replace(/\<p\sclass=\"nico-description\"\>/g, '')
