@@ -8,9 +8,11 @@ Util = require './util'
 
 SM = {}
 SM.getNewOnes = (movies) ->
-  Util.runSequentially movies.map (movie) ->
+  promises = movies.map (movie) ->
     -> (SM.getAverageLevenshteinValues movie).then (levenshteinCollection) ->
       (_.min levenshteinCollection, (hash) -> hash.average).mylistId
+
+  Promise.resolve _.compact Util.runSequentially promises
 
 SM.getAverageLevenshtein = (mylistId) ->
   new Crawler.MylistRSS(mylistId).allMovies()
