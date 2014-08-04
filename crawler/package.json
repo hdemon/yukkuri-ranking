@@ -30,7 +30,7 @@
   "devDependencies": {
     "chai": "*",
     "grunt": "~0.4.5",
-    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-watch": "~0.6.1",
     "grunt-mocha-test": "^0.11.0",
     "grunt-simple-mocha": "~0.4",
     "load-grunt-tasks": "*",
@@ -41,6 +41,7 @@
   "keywords": [],
   "dependencies": {
     "cheerio": "^0.17.0",
+    "coffee-script": "^1.7.1",
     "levenshtein": "^1.0.4",
     "lodash": "^2.4.1",
     "nock": "^0.42.1",
