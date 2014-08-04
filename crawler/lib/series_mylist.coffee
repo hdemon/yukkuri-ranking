@@ -12,7 +12,7 @@ SM.getNewOnes = (movies) ->
     -> (SM.getAverageLevenshteinValues movie).then (levenshteinCollection) ->
       (_.min levenshteinCollection, (hash) -> hash.average).mylistId
 
-  Promise.resolve _.compact Util.runSequentially promises
+  Util.runSequentially(promises).then (results) -> Promise.resolve _.compact results
 
 SM.getAverageLevenshtein = (mylistId) ->
   new Crawler.MylistRSS(mylistId).allMovies()
