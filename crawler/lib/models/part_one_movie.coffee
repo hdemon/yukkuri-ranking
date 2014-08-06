@@ -6,8 +6,13 @@ bookshelf = require('bookshelf')(knex)
 PartOneMovie = bookshelf.Model.extend
   tableName: 'part_one_movies'
   fetchLatest: ->
-    @query (qb) ->
+    PartOneMovie.query (qb) ->
       qb.orderBy 'published_at', 'ASC'
     .fetch()
+
+  removeRecently: (num) ->
+    PartOneMovie.query (qb) ->
+      qb.orderBy('published_at', 'ASC').limit num
+        .delete()
 
 module.exports = PartOneMovie

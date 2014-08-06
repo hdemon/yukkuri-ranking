@@ -3,10 +3,14 @@ request = require 'request'
 Promise = require 'ypromise'
 _ = require 'lodash'
 Util = require './util'
-auth = require './auth'
+knex = require('knex')(require '../config/database')
+bookshelf = require('bookshelf')(knex)
 
 Store = {}
+Store.movieInfo = (movieInfo) ->
+
 Store.inCouchDB = (movieInfo) ->
+  console.log "Start to store in couch db"
   console.log movieInfo
   request
     url: "https://#{auth.user}:#{auth.password}@hdemon.cloudant.com/yukkuri-ranking/"
