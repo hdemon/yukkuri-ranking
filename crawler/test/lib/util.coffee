@@ -1,13 +1,9 @@
-chai = require('chai')
-expect = chai.expect
-should = chai.should()
 sinon = require('sinon')
-sinonChai = require('sinon-chai')
+chai = require('chai').use(require 'sinon-chai')
+expect = chai.expect
 fs = require 'fs'
 nock = require 'nock'
 Util = require '../../lib/util.coffee'
-chai.use(sinonChai)
-
 
 describe "combination", ->
   beforeEach (done) ->

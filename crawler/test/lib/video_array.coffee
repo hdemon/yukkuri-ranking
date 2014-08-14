@@ -1,13 +1,9 @@
-chai = require('chai')
-expect = chai.expect
-should = chai.should()
 sinon = require('sinon')
-sinonChai = require('sinon-chai')
+chai = require('chai').use(require 'sinon-chai')
+expect = chai.expect
 fs = require 'fs'
 nock = require 'nock'
 VideoArray = require '../../lib/video_array.coffee'
-chai.use(sinonChai)
-
 
 describe "nextMovie", ->
   beforeEach (done) ->

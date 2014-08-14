@@ -1,12 +1,8 @@
-chai = require('chai')
-expect = chai.expect
-should = chai.should()
 sinon = require('sinon')
-sinonChai = require('sinon-chai')
+chai = require('chai').use(require 'sinon-chai')
+expect = chai.expect
 PartOneMovie = require '../../../lib/models/part_one_movie.coffee'
-chai.use(sinonChai)
 knex = require('knex')(require '../../../config/database')
-
 
 describe "fetchLatest", ->
   beforeEach (done) ->
