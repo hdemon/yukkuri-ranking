@@ -1,3 +1,4 @@
+require 'source-map-support'
 fs = require 'fs'
 request = require 'request'
 Promise = require 'ypromise'
@@ -26,7 +27,6 @@ PO.getLatestMovieInfo = ->
       sorted.pop().doc
 
 PO.crawl = (latestMovieInfo) ->
-  console.log latestMovieInfo
   newPartOneMovies = [] unless newPartOneMovies?
   crawler.nextMovie()
     .then (movieInfo) =>
@@ -39,16 +39,23 @@ PO.crawl = (latestMovieInfo) ->
         newPartOneMovies.push movieInfo
         PO.crawl latestMovieInfo
     .catch (error) ->
-      if error == "Reached to the last page"
-        console.error error
-        console.error "Terminated crawling part one movie successfully"
+      if error.message == "Reached to the last page"
+        console.log "Terminated crawling part one movie successfully"
         Promise.resolve newPartOneMovies
       else
-        console.error "Stop at crawling part one movie"
         Promise.reject error
 
+PO.save = (newPartOneMovies, transacting) ->
+  PartOneMovies = bookshelf.Collection.extend
+    model: Model.PartOneMovie
+
+  Promise.all (PartOneMovies.forge newPartOneMovies).map (model) ->
+    model.save null, {transacting}
+
+  # (PartOneMovies.forge newPartOneMovies).invoke('save', [null, {transacting}])
+
 PO.shouldTerminate = (movieInfo, latestMovieInfo) ->
-  (movieInfo.published <= latestMovieInfo.get('published')) || _.isEmpty movieInfo
+  (movieInfo.published <= latestMovieInfo.published) || _.isEmpty movieInfo
 
 PO.removeMovie = (movie) ->
   new Promise (resolve, reject) ->
@@ -62,14 +69,18 @@ PO.removeMovie = (movie) ->
 PO.removeMovies = (movies) ->
   Promise.all movies.map (movie) -> PO.removeMovie movie
 
-PO.crawlLatests = ->
+PO.crawlLatests = (transacting) ->
   console.log "start crawling part one movies"
 
   Promise.resolve()
-    .then Model.PartOneMovie.fetchLatest
+    .then -> (new Model.PartOneMovie).fetchLatest().attributes || { published: 0, video_id: "0" }
     .then PO.crawl
+    .then (partOneMovies) ->
+      PO.save partOneMovies, transacting
+      console.log "save"
     .catch (error) ->
       console.error "Stop at crawling part one movie"
+      console.error error
       Promise.reject error
 
 module.exports = PO
