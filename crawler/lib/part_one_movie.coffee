@@ -49,10 +49,9 @@ PO.save = (newPartOneMovies, transacting) ->
   PartOneMovies = bookshelf.Collection.extend
     model: Model.PartOneMovie
 
+  # (PartOneMovies.forge newPartOneMovies).invoke('save', [null, {transacting}])
   Promise.all (PartOneMovies.forge newPartOneMovies).map (model) ->
     model.save null, {transacting}
-
-  # (PartOneMovies.forge newPartOneMovies).invoke('save', [null, {transacting}])
 
 PO.shouldTerminate = (movieInfo, latestMovieInfo) ->
   (movieInfo.published <= latestMovieInfo.published) || _.isEmpty movieInfo
@@ -62,9 +61,12 @@ PO.removeMovie = (movie) ->
     request
       url: "https://#{auth.user}:#{auth.password}@hdemon.cloudant.com/yukkuri-ranking/#{movie.id}?rev=#{movie.value.rev}"
       method: "DELETE"
-    , (err, message, response) ->
-      console.log err if err
-      resolve()
+    , (error, message, response) ->
+      if error
+        console.error error
+        reject error
+      else
+        resolve()
 
 PO.removeMovies = (movies) ->
   Promise.all movies.map (movie) -> PO.removeMovie movie
@@ -77,7 +79,6 @@ PO.crawlLatests = (transacting) ->
     .then PO.crawl
     .then (partOneMovies) ->
       PO.save partOneMovies, transacting
-      console.log "save"
     .catch (error) ->
       console.error "Stop at crawling part one movie"
       console.error error
