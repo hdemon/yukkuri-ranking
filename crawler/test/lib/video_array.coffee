@@ -7,10 +7,9 @@ VideoArray = require '../../lib/video_array.coffee'
 
 describe "nextMovie", ->
   beforeEach (done) ->
-    @fixture = fs.readFileSync("test/fixture/video_array.xml")
     @mock = nock('http://i.nicovideo.jp')
       .get("/v3/video.array?v=sm24040823,sm24013515")
-      .reply(200, @fixture)
+      .reply(200, fs.readFileSync("test/fixture/video_array.xml"))
 
     @crawler = new VideoArray ['sm24040823', 'sm24013515']
 

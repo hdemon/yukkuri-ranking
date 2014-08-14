@@ -1,10 +1,8 @@
 sinon = require('sinon')
 chai = require('chai').use(require 'sinon-chai')
 expect = chai.expect
-fs = require 'fs'
 PO = require '../../lib/part_one_movie.coffee'
 knex = require('knex')(require '../../config/database_test')
-fixture = JSON.parse fs.readFileSync "./test/fixture/part_one_movie/part_one_movies.json"
 
 describe "save", ->
   context "when no error has caused during transaction", ->
