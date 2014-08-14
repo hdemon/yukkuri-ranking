@@ -1,20 +1,15 @@
-chai = require('chai')
-expect = chai.expect
-should = chai.should()
 sinon = require('sinon')
-sinonChai = require('sinon-chai')
+chai = require('chai').use(require 'sinon-chai')
+expect = chai.expect
 fs = require 'fs'
 nock = require 'nock'
 VideoArray = require '../../lib/video_array.coffee'
-chai.use(sinonChai)
-
 
 describe "nextMovie", ->
   beforeEach (done) ->
-    @fixture = fs.readFileSync("test/fixture/video_array.xml")
     @mock = nock('http://i.nicovideo.jp')
       .get("/v3/video.array?v=sm24040823,sm24013515")
-      .reply(200, @fixture)
+      .reply(200, fs.readFileSync("test/fixture/video_array.xml"))
 
     @crawler = new VideoArray ['sm24040823', 'sm24013515']
 

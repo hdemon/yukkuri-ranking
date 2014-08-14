@@ -1,17 +1,12 @@
-chai = require('chai')
-expect = chai.expect
-should = chai.should()
 sinon = require('sinon')
-sinonChai = require('sinon-chai')
-fs = require 'fs'
+chai = require('chai').use(require 'sinon-chai')
+expect = chai.expect
 nock = require 'nock'
 Task = require '../../lib/task.coffee'
-chai.use(sinonChai)
-
-fixture = JSON.parse fs.readFileSync "./test/fixture/part_one_movie/part_one_movies.json"
 
 describe "retrieveSequentially", ->
   beforeEach (done) ->
+    part_one_movie_infos = require "../fixture/part_one_movie/part_one_movies.json"
     # mylist described at sm24062951
     @mock1 = nock('http://www.nicovideo.jp').get("/mylist/44506319?rss=2.0").reply(200, fs.readFileSync "./test/fixture/part_one_movie/44506319.xml")
     @mock2 = nock('http://www.nicovideo.jp').get("/mylist/39009529?rss=2.0").reply(200, fs.readFileSync "./test/fixture/part_one_movie/39009529.xml")
@@ -22,7 +17,7 @@ describe "retrieveSequentially", ->
     @mock5 = nock('http://www.nicovideo.jp').get("/mylist/45046494?rss=2.0").reply(200, fs.readFileSync "./test/fixture/part_one_movie/45046494.xml")
     @mock6 = nock('http://www.nicovideo.jp').get("/mylist/39654546?rss=2.0").reply(200, fs.readFileSync "./test/fixture/part_one_movie/39654546.xml")
 
-    Task.SeriesMylist.retrieveSequentially(fixture)
+    Task.SeriesMylist.retrieveSequentially(part_one_movie_infos)
       .then (@returned) => done()
 
   it "should return hash of first(sm24040823) movie info", ->

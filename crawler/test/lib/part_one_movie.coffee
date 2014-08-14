@@ -1,17 +1,8 @@
-chai = require('chai')
-expect = chai.expect
-should = chai.should()
 sinon = require('sinon')
-sinonChai = require('sinon-chai')
-fs = require 'fs'
-nock = require 'nock'
+chai = require('chai').use(require 'sinon-chai')
+expect = chai.expect
 PO = require '../../lib/part_one_movie.coffee'
-chai.use(sinonChai)
 knex = require('knex')(require '../../config/database_test')
-Model = require '../../lib/models.coffee'
-
-fixture = JSON.parse fs.readFileSync "./test/fixture/part_one_movie/part_one_movies.json"
-
 
 describe "save", ->
   context "when no error has caused during transaction", ->
