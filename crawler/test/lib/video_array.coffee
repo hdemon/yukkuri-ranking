@@ -8,21 +8,21 @@ VideoArray = require '../../lib/video_array.coffee'
 describe "VideoArray", ->
   describe "nextMovie", ->
     beforeEach (done) ->
-      @mock = nock('http://i.nicovideo.jp')
+      mock = nock('http://i.nicovideo.jp')
         .get("/v3/video.array?v=sm24040823,sm24013515")
         .reply(200, fs.readFileSync("test/fixture/video_array.xml"))
 
-      @crawler = new VideoArray ['sm24040823', 'sm24013515']
+      crawler = new VideoArray ['sm24040823', 'sm24013515']
 
-      @crawler.nextMovie().then (movieInfo) =>
-        @returned = movieInfo
-        @mock.done()
+      crawler.nextMovie().then (movieInfo) =>
+        @result = movieInfo
+        mock.done()
         done()
 
     it "should return hash of movie info", ->
-      expect(@returned.video_id).to.equal "sm24040823"
-      expect(@returned.view_counter).to.equal 439
-      expect(@returned.tags).to.deep.equal [
+      expect(@result.video_id).to.equal "sm24040823"
+      expect(@result.view_counter).to.equal 439
+      expect(@result.tags).to.deep.equal [
           "ゲーム"
           "パワポケ11"
           "ゆっくり実況プレイ"
