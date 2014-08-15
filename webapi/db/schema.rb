@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813130605) do
+ActiveRecord::Schema.define(version: 20140815050159) do
 
   create_table "part_one_movies", force: true do |t|
-    t.string "video_id"
-    t.date   "published_at"
+    t.string "video_id",     null: false
+    t.date   "published_at", null: false
+    t.text   "description"
   end
 
 end

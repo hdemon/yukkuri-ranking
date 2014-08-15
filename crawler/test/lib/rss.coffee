@@ -23,5 +23,5 @@ describe "Crawler.RSS", ->
 
     it "should return hash of latest movie info", ->
       expect(@result.video_id).to.deep.equal "sm24040823"
-      expect(@result.published).to.deep.equal 1405774813000
+      expect(@result.published_at).to.deep.equal 1405774813000
       expect(@result.description).to.be.a 'string'

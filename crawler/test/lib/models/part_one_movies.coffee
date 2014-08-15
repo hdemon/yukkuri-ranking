@@ -7,12 +7,12 @@ knex = require('knex')(require '../../../config/database')
 describe "Model.PartOneMovie", ->
   describe "fetchLatest", ->
     beforeEach (done) ->
-      fixture = (published_at, video_id) -> {published_at, video_id}
-
-      knex('part_one_movies').insert(fixture 2, 'sm1')
-        .then knex('part_one_movies').insert(fixture 0, 'sm2')
-        .then knex('part_one_movies').insert(fixture 1, 'sm3')
+      knex('part_one_movies').insert({published_at: new Date, video_id: 'sm1', description: 'description'})
+        .insert({published_at: (new Date + 1), video_id: 'sm2', description: 'description'})
+        .insert({published_at: (new Date + 2), video_id: 'sm3', description: 'description'})
         .then -> done()
+        .catch (error) ->
+          console.error error
 
     afterEach (done) ->
       knex('part_one_movies').delete().then -> done()
@@ -20,4 +20,4 @@ describe "Model.PartOneMovie", ->
     it 'should store info', ->
       model = new PartOneMovie
       model.fetchLatest().then (model) ->
-        expect(model.get 'video_id').to.be.equal 'sm1'
+        expect(model.get 'video_id').to.be.equal 'sm3'
