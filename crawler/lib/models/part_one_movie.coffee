@@ -10,9 +10,6 @@ PartOneMovie = bookshelf.Model.extend
       qb.orderBy 'published_at', 'ASC'
     .fetch()
 
-  removeRecently: (num) ->
-    PartOneMovie.query (qb) ->
-      qb.orderBy('published_at', 'ASC').limit num
-        .delete()
+  endPoint: -> (new PartOneMovie()).set { published: 0, video_id: "sm0" }
 
 module.exports = PartOneMovie

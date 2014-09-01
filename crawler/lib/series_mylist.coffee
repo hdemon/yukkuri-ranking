@@ -19,6 +19,7 @@ SM.getAverageLevenshtein = (mylistId) ->
     .then (movieInfos) ->
       titles = movieInfos.map (movieInfo) -> movieInfo.title
       average = Util.average (Util.combination titles).map (combination) -> (new Levenshtein combination[0], combination[1]).distance
+      console.log { mylistId, average }
       { mylistId, average }
     .catch (error) -> console.trace error
 
@@ -27,6 +28,7 @@ SM.getAverageLevenshteinValues = (movie) ->
     -> (Util.sleep 500).then -> SM.getAverageLevenshtein mylistId
 
 SM.retrieveMylistsIds = (movie) ->
+  console.log movie
   (movie.description.match(/mylist\/\d{1,}/g) || []).map (string) -> Number string.replace /mylist\//g, ''
 
 SM.retrieveSequentially = (movies) ->

@@ -26,4 +26,17 @@ Util.runSequentially = (promises) ->
       results
   , Promise.resolve()
 
+Util.while = (func, condition) ->
+  resultArray = []
+  _loop = ->
+    func()
+      .then (result) ->
+        resultArray.push result
+        if condition.apply this, [result]
+          _loop()
+        else
+          Promise.resolve resultArray
+      .catch Promise.reject
+  _loop()
+
 module.exports = Util
